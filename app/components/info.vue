@@ -13,10 +13,22 @@ div#info
 export default {
   name: 'info',
   props: ['pageInfo'],
+  // ここを消すと動作せず
+  // data () {
+  //   return {
+  //     state: this.pageInfo
+  //   }
+  // },
   methods: {
     changeStatus: function () {
+      if (this.pageInfo.status === 'OFF') {
+        this.$set(this.pageInfo, 'status', 'Loading')
+      }
       this.$parent.$emit('changeStatus')
     }
+  },
+  mounted () {
+    this.$watch('pageInfo')
   }
 }
 </script>
