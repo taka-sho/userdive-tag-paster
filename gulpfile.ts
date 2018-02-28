@@ -1,7 +1,6 @@
-/* @flow */
-import gulp from 'gulp'
-import gulpLoadPlugins from 'gulp-load-plugins'
-import runSequence from 'run-sequence'
+import * as gulp from 'gulp'
+import * as gulpLoadPlugins from 'gulp-load-plugins'
+import * as runSequence from 'run-sequence'
 
 const $ = gulpLoadPlugins()
 
@@ -22,10 +21,7 @@ gulp.task('chromeManifest', ['js'], () => {
 
 gulp.task('js', () => {
   return gulp
-    .src([
-      'app/scripts/options.js',
-      'app/scripts/popup.js'
-    ])
+    .src(['app/scripts/options.js', 'app/scripts/popup.js'])
     .pipe(gulp.dest('dist/scripts'))
 })
 
@@ -34,7 +30,7 @@ gulp.task('size', () => {
 })
 
 gulp.task('package', function () {
-  const manifest = require('./dist/manifest.json')
+  const manifest = require('./app/manifest.json')
   const app = require('./package.json')
 
   if (app.version !== manifest.version) {
@@ -48,11 +44,7 @@ gulp.task('package', function () {
 })
 
 gulp.task('build', cb => {
-  runSequence(
-    'chromeManifest',
-    'size',
-    cb
-  )
+  runSequence('chromeManifest', 'size', cb)
 })
 
 gulp.task('default', cb => {
